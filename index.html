@@ -2,12 +2,83 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;">
   <title>Travel Planner Desktop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Travel Planner</h1>
-  <p>App is running.</p>
+  <div class="app-layout">
+<aside class="sidebar">
+  <div class="brand">
+    <span class="brand-icon">✈️</span>
+    <div class="brand-text">
+      <h2>Voyage</h2>
+      <span class="brand-tag">Travel Planner</span>
+    </div>
+  </div>
+  <nav class="nav-menu">
+    <button class="nav-item active" id="nav-dashboard">
+      <span class="nav-icon">🧭</span><span>Dashboard</span>
+    </button>
+    <button class="nav-item" id="nav-create">
+      <span class="nav-icon">✨</span><span>Create Trip</span>
+    </button>
+    <button class="nav-item" id="nav-trips">
+      <span class="nav-icon">🗺️</span><span>Saved Trips</span>
+    </button>
+  </nav>
+</aside>
+<main class="main-content">
+  <header class="top-header">
+    <div>
+      <h1>Welcome, Explorer</h1>
+      <p class="subtitle">Plan your next adventure with day-by-day itineraries and smart budgets.</p>
+    </div>
+    <button class="btn btn-primary" id="btn-quick-create"><span>+</span> Plan New Trip</button>
+  </header>
+<section id="view-dashboard" class="view-section">
+  <div class="welcome-card">
+    <div class="welcome-info">
+      <h2>Simple, Smart Travel Planning</h2>
+      <p>Ready to discover the world? Create custom itineraries, visualize budget distributions, manage checklists, and explore curated destination ideas.</p>
+      <div class="welcome-actions">
+        <button class="btn btn-primary" id="btn-get-started">Start Planning</button>
+      </div>
+    </div>
+    <div class="welcome-graphic">
+      <div class="globe-badge">🌍</div>
+    </div>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">🎒</div>
+      <div class="stat-data">
+        <span class="stat-value" id="stat-total-trips">0</span>
+        <span class="stat-label">Saved Trips</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">📍</div>
+      <div class="stat-data">
+        <span class="stat-value">6+</span>
+        <span class="stat-label">Popular Destinations</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">💰</div>
+      <div class="stat-data">
+        <span class="stat-value">Smart</span>
+        <span class="stat-label">Budget Breakdown</span>
+      </div>
+    </div>
+  </div>
+</section>
+    </main>
+  </div>
   <script src="renderer.js"></script>
 </body>
 </html>
