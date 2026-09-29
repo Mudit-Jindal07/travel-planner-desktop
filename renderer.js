@@ -13,6 +13,49 @@ function switchView(target) {
   if (target === 'trips') renderSavedTripsList();
 }
 
+function setupCreateTripForm() {
+  const form = document.getElementById('form-create-trip');
+  const errorMsg = document.getElementById('form-error-msg');
+
+  document.getElementById('btn-cancel-create')?.addEventListener('click', () => {
+    form.reset();
+    errorMsg.classList.add('hidden');
+    switchView('dashboard');
+  });
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const name = document.getElementById('trip-name').value.trim();
+    const destination = document.getElementById('trip-destination').value;
+    const days = parseInt(document.getElementById('trip-days').value, 10);
+    const budget = parseFloat(document.getElementById('trip-budget').value);
+    const interests = Array.from(document.querySelectorAll('input[name="interests"]:checked')).map(cb => cb.value);
+
+    if (!name || !destination || isNaN(days) || isNaN(budget) || interests.length === 0) {
+      errorMsg.textContent = 'Please fill out all fields and choose at least one interest.';
+      errorMsg.classList.remove('hidden');
+      return;
+    }
+
+    errorMsg.classList.add('hidden');
+    currentDraftTrip = {
+      id: `trip-${Date.now()}`,
+      name,
+      destination,
+      days,
+      budget,
+      interests,
+      itinerary: generateItinerary(destination, days),
+      budgetBreakdown: calculateBudgetBreakdown(budget),
+      packingList: generatePackingList(destination)
+    };
+
+    renderTripDetails(currentDraftTrip);
+    switchView('details');
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const navMap = {
     'nav-dashboard': 'dashboard',
