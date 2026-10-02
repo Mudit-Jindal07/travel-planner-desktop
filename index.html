@@ -129,6 +129,38 @@
     </form>
   </div>
 </section>
+<section id="view-trips" class="view-section hidden">
+  <div class="view-header">
+    <h2>Your Saved Trips</h2>
+    <p class="subtitle">Access and manage all your stored travel plans from one place.</p>
+  </div>
+  <div class="saved-trips-grid" id="saved-trips-grid"></div>
+  <div class="placeholder-card" id="saved-trips-empty">
+    <p>No saved trips found yet. Start by planning your first trip!</p>
+    <button class="btn btn-primary" id="btn-empty-create">Plan a Trip Now</button>
+  </div>
+</section>
+<section id="view-details" class="view-section hidden">
+  <div class="view-header details-header-bar">
+    <button class="btn btn-outline btn-sm" id="btn-back-to-dashboard">← Back</button>
+    <div class="details-title-wrap">
+      <h2 id="details-trip-title">Trip Itinerary</h2>
+      <div id="details-meta-tags" class="meta-tags-row"></div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-primary" id="btn-save-current-trip"><span>💾</span> Save Trip</button>
+    </div>
+  </div>
+  <div class="details-layout">
+    <div class="itinerary-column">
+      <div class="column-header">
+        <h3>Day-by-Day Itinerary</h3>
+        <span class="badge-subtle" id="itinerary-day-count">3 Days Planned</span>
+      </div>
+      <div id="itinerary-timeline-container" class="timeline-container"></div>
+    </div>
+  </div>
+</section>
     </main>
   </div>
   <script src="renderer.js"></script>
