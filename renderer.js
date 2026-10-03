@@ -29,6 +29,35 @@ function generateItinerary(destination, days) {
   return itinerary;
 }
 
+function calculateBudgetBreakdown(totalBudget) {
+  return [
+    { name: "🏨 Accommodation",       percent: 40, amount: Math.round(totalBudget * 0.40), color: "#2563eb" },
+    { name: "🍲 Food & Dining",        percent: 25, amount: Math.round(totalBudget * 0.25), color: "#0284c7" },
+    { name: "🚕 Local Transport",      percent: 15, amount: Math.round(totalBudget * 0.15), color: "#0d9488" },
+    { name: "🎟️ Sightseeing & Entry",  percent: 12, amount: Math.round(totalBudget * 0.12), color: "#f59e0b" },
+    { name: "🛍️ Miscellaneous",         percent: 8,  amount: Math.round(totalBudget * 0.08), color: "#8b5cf6" }
+  ];
+}
+
+function renderBudgetBreakdown(trip) {
+  document.getElementById('budget-total-badge').textContent = `₹${trip.budget.toLocaleString('en-IN')} Total`;
+  document.getElementById('budget-chart-bar').innerHTML = trip.budgetBreakdown.map(c => `
+    <div class="budget-segment" style="width:${c.percent}%;background-color:${c.color};" title="${c.name}: ${c.percent}%"></div>
+  `).join('');
+  document.getElementById('budget-categories-container').innerHTML = trip.budgetBreakdown.map(c => `
+    <div class="budget-category-row">
+      <div class="budget-category-label">
+        <span class="category-dot" style="background-color:${c.color};"></span>
+        <span>${c.name}</span>
+      </div>
+      <div class="budget-category-values">
+        <span class="category-percent">${c.percent}%</span>
+        <span class="category-amount">₹${c.amount.toLocaleString('en-IN')}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
 function renderTripDetails(trip) {
   document.getElementById('details-trip-title').textContent = trip.name;
   document.getElementById('details-meta-tags').innerHTML = `
@@ -55,7 +84,8 @@ function renderTripDetails(trip) {
       </div>
     </div>
   `).join('');
-}
+
+  renderBudgetBreakdown(trip);}
 
 function switchView(target) {
   document.querySelectorAll('.view-section').forEach(el => {
