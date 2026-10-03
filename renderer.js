@@ -29,6 +29,26 @@ function generateItinerary(destination, days) {
   return itinerary;
 }
 
+function generatePackingList(destination) {
+  const common = [
+    "Government ID & Travel Tickets",
+    "Phone Charger & Power Bank",
+    "Comfortable Walking Shoes",
+    "Daily Clothes & Toiletries Kit",
+    "Basic Medicines & First-Aid"
+  ];
+  const cityGear = {
+    Goa: ["Sunscreen & Sunglasses", "Swimwear & Beach Slippers"],
+    Manali: ["Heavy Winter Jacket", "Woollen Caps & Gloves"],
+    Jaipur: ["Sun Hat & Cotton Stole", "Reusable Water Bottle"],
+    Kerala: ["Mosquito Repellent", "Compact Umbrella / Rainwear"],
+    Tokyo: ["Coin Pouch for Cash", "Easy Slip-On Shoes"],
+    Paris: ["Smart Casual Evening Wear", "Secure Crossbody Bag"]
+  };
+  const extra = cityGear[destination] || ["Travel Diary & Notes"];
+  return [...common, ...extra].map(text => ({ text, checked: false }));
+}
+
 function calculateBudgetBreakdown(totalBudget) {
   return [
     { name: "🏨 Accommodation",       percent: 40, amount: Math.round(totalBudget * 0.40), color: "#2563eb" },
@@ -85,7 +105,31 @@ function renderTripDetails(trip) {
     </div>
   `).join('');
 
-  renderBudgetBreakdown(trip);}
+  renderBudgetBreakdown(trip);
+  renderChecklist(trip);
+}
+
+function renderChecklist(trip) {
+  const total = trip.packingList.length;
+  const checked = trip.packingList.filter(i => i.checked).length;
+  document.getElementById('packing-counter').textContent = `${checked} / ${total} Packed`;
+
+  const container = document.getElementById('packing-checklist-container');
+  container.innerHTML = trip.packingList.map((item, idx) => `
+    <li class="checklist-item ${item.checked ? 'checked' : ''}">
+      <input type="checkbox" id="chk-${idx}" ${item.checked ? 'checked' : ''} />
+      <label for="chk-${idx}">${item.text}</label>
+    </li>
+  `).join('');
+
+  container.querySelectorAll('input[type="checkbox"]').forEach((box, idx) => {
+    box.addEventListener('change', e => {
+      trip.packingList[idx].checked = e.target.checked;
+      renderChecklist(trip);
+      if (savedTrips.some(t => t.id === trip.id)) window.travelAPI?.saveTrips(savedTrips);
+    });
+  });
+}
 
 function switchView(target) {
   document.querySelectorAll('.view-section').forEach(el => {
