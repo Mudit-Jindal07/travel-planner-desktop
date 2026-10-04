@@ -11,7 +11,10 @@ function createWindow() {
     minWidth: 900,
     minHeight: 600,
     title: "Travel Planner",
-    backgroundColor: "#f0f4f8"
+    backgroundColor: "#f0f4f8",
+    webPreferences: {
+      preload: path.join(import.meta.dirname, "preload.js")
+    }
   });
   win.loadFile(path.join(import.meta.dirname, "index.html"));
 }
