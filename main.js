@@ -1,8 +1,24 @@
 // main.js - Electron main process.
 import electron from "electron";
 import path from "path";
+import fs from "fs";
 
-const { app, BrowserWindow } = electron;
+const { app, BrowserWindow, ipcMain } = electron;
+
+function getTripsFilePath() {
+  return path.join(app.getPath("userData"), "trips.json");
+}
+
+function readTripsFromDisk() {
+  try {
+    const filePath = getTripsFilePath();
+    if (!fs.existsSync(filePath)) return [];
+    return JSON.parse(fs.readFileSync(filePath, "utf-8")) || [];
+  } catch (err) {
+    console.error("Failed to read trips.json:", err);
+    return [];
+  }
+}
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -18,6 +34,8 @@ function createWindow() {
   });
   win.loadFile(path.join(import.meta.dirname, "index.html"));
 }
+
+ipcMain.handle("trips:load", () => readTripsFromDisk());
 
 app.whenReady().then(() => {
   createWindow();
