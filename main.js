@@ -20,6 +20,16 @@ function readTripsFromDisk() {
   }
 }
 
+function writeTripsToDisk(trips) {
+  try {
+    fs.writeFileSync(getTripsFilePath(), JSON.stringify(trips, null, 2), "utf-8");
+    return true;
+  } catch (err) {
+    console.error("Failed to write trips.json:", err);
+    return false;
+  }
+}
+
 function createWindow() {
   const win = new BrowserWindow({
     width: 1200,
@@ -36,6 +46,7 @@ function createWindow() {
 }
 
 ipcMain.handle("trips:load", () => readTripsFromDisk());
+ipcMain.handle("trips:save", (_event, trips) => writeTripsToDisk(trips));
 
 app.whenReady().then(() => {
   createWindow();

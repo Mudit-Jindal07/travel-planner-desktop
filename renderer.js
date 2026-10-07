@@ -131,6 +131,11 @@ function renderChecklist(trip) {
   });
 }
 
+async function loadSavedTrips() {
+  savedTrips = (await window.travelAPI?.loadTrips()) || [];
+  renderSavedTripsList();
+}
+
 async function saveCurrentTrip() {
   if (!currentDraftTrip) return;
   const idx = savedTrips.findIndex(t => t.id === currentDraftTrip.id);
@@ -146,6 +151,11 @@ async function saveCurrentTrip() {
     btn.innerHTML = `<span>✅</span> Saved to Disk!`;
     setTimeout(() => { btn.innerHTML = original; }, 2000);
   }
+}
+
+function renderSavedTripsList() {
+  const countBadge = document.getElementById('stat-total-trips');
+  if (countBadge) countBadge.textContent = savedTrips.length;
 }
 
 function switchView(target) {
@@ -213,7 +223,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   Object.entries(navMap).forEach(([id, view]) => {
     document.getElementById(id)?.addEventListener('click', () => switchView(view));
-    document.getElementById('btn-save-current-trip')?.addEventListener('click', saveCurrentTrip);
-});
+  });
+
   document.getElementById('btn-save-current-trip')?.addEventListener('click', saveCurrentTrip);
+
+  setupCreateTripForm();
+  loadSavedTrips();
 });
