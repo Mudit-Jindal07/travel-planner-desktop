@@ -156,6 +156,45 @@ async function saveCurrentTrip() {
 function renderSavedTripsList() {
   const countBadge = document.getElementById('stat-total-trips');
   if (countBadge) countBadge.textContent = savedTrips.length;
+
+  const grid = document.getElementById('saved-trips-grid');
+  const emptyMsg = document.getElementById('saved-trips-empty');
+  if (!grid || !emptyMsg) return;
+
+  if (savedTrips.length === 0) {
+    grid.innerHTML = '';
+    emptyMsg.classList.remove('hidden');
+    return;
+  }
+
+  emptyMsg.classList.add('hidden');
+  grid.innerHTML = savedTrips.map(trip => `
+    <div class="saved-trip-card">
+      <div>
+        <h4 class="saved-trip-title">${trip.name}</h4>
+        <div class="saved-trip-details">
+          <span class="saved-trip-tag">📍 ${trip.destination}</span>
+          <span class="saved-trip-tag">📅 ${trip.days} Days</span>
+          <span class="saved-trip-tag">💰 ₹${trip.budget.toLocaleString('en-IN')}</span>
+        </div>
+      </div>
+      <div class="saved-trip-actions">
+        <button class="btn btn-outline btn-sm btn-open" data-id="${trip.id}">Open Plan →</button>
+        
+      </div>
+    </div>
+  `).join('');
+
+  grid.querySelectorAll('.btn-open').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const trip = savedTrips.find(t => t.id === btn.getAttribute('data-id'));
+      if (trip) {
+        currentDraftTrip = trip;
+        renderTripDetails(trip);
+        switchView('details');
+      }
+    });
+  });
 }
 
 function switchView(target) {
