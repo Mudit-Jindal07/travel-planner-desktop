@@ -180,7 +180,7 @@ function renderSavedTripsList() {
       </div>
       <div class="saved-trip-actions">
         <button class="btn btn-outline btn-sm btn-open" data-id="${trip.id}">Open Plan →</button>
-        
+        <button class="btn-danger btn-delete" data-id="${trip.id}">Delete</button>
       </div>
     </div>
   `).join('');
@@ -194,6 +194,10 @@ function renderSavedTripsList() {
         switchView('details');
       }
     });
+  });
+
+  grid.querySelectorAll('.btn-delete').forEach(btn => {
+    btn.addEventListener('click', () => deleteTrip(btn.getAttribute('data-id')));
   });
 }
 
@@ -269,3 +273,9 @@ document.addEventListener('DOMContentLoaded', () => {
   setupCreateTripForm();
   loadSavedTrips();
 });
+async function deleteTrip(tripId) {
+  savedTrips = savedTrips.filter(t => t.id !== tripId);
+  await window.travelAPI?.saveTrips(savedTrips);
+  renderSavedTripsList();
+}
+
