@@ -1,7 +1,6 @@
 // renderer.js
 
-let currentDraftTrip = null;
-let savedTrips = [];
+let currentDraftTrip = null, savedTrips = [];
 
 const DESTINATION_ACTIVITIES = {
   Jaipur: ["Amber Fort Tour", "Rajasthani Thali Lunch", "City Palace & Hawa Mahal", "Nahargarh Sunset", "Johari Bazaar Shopping", "Chokhi Dhani Dinner"],
