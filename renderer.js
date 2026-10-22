@@ -1,7 +1,9 @@
-// renderer.js
+// renderer.js — UI state for the trip planner. Talks to disk through window.travelAPI.
 
-let currentDraftTrip = null, savedTrips = [];
+let currentDraftTrip = null;
+let savedTrips = [];
 
+// Sample activities per destination. Lets us build a sensible itinerary without any API.
 const DESTINATION_ACTIVITIES = {
   Jaipur: ["Amber Fort Tour", "Rajasthani Thali Lunch", "City Palace & Hawa Mahal", "Nahargarh Sunset", "Johari Bazaar Shopping", "Chokhi Dhani Dinner"],
   Goa: ["Baga Beach Walk", "Watersports at Island", "Goan Seafood Shack", "Old Goa Churches", "Anjuna Flea Market", "Sunset River Cruise"],
@@ -58,25 +60,6 @@ function calculateBudgetBreakdown(totalBudget) {
   ];
 }
 
-function renderBudgetBreakdown(trip) {
-  document.getElementById('budget-total-badge').textContent = `₹${trip.budget.toLocaleString('en-IN')} Total`;
-  document.getElementById('budget-chart-bar').innerHTML = trip.budgetBreakdown.map(c => `
-    <div class="budget-segment" style="width:${c.percent}%;background-color:${c.color};" title="${c.name}: ${c.percent}%"></div>
-  `).join('');
-  document.getElementById('budget-categories-container').innerHTML = trip.budgetBreakdown.map(c => `
-    <div class="budget-category-row">
-      <div class="budget-category-label">
-        <span class="category-dot" style="background-color:${c.color};"></span>
-        <span>${c.name}</span>
-      </div>
-      <div class="budget-category-values">
-        <span class="category-percent">${c.percent}%</span>
-        <span class="category-amount">₹${c.amount.toLocaleString('en-IN')}</span>
-      </div>
-    </div>
-  `).join('');
-}
-
 function renderTripDetails(trip) {
   document.getElementById('details-trip-title').textContent = trip.name;
   document.getElementById('details-meta-tags').innerHTML = `
@@ -108,6 +91,25 @@ function renderTripDetails(trip) {
   renderChecklist(trip);
 }
 
+function renderBudgetBreakdown(trip) {
+  document.getElementById('budget-total-badge').textContent = `₹${trip.budget.toLocaleString('en-IN')} Total`;
+  document.getElementById('budget-chart-bar').innerHTML = trip.budgetBreakdown.map(c => `
+    <div class="budget-segment" style="width:${c.percent}%;background-color:${c.color};" title="${c.name}: ${c.percent}%"></div>
+  `).join('');
+  document.getElementById('budget-categories-container').innerHTML = trip.budgetBreakdown.map(c => `
+    <div class="budget-category-row">
+      <div class="budget-category-label">
+        <span class="category-dot" style="background-color:${c.color};"></span>
+        <span>${c.name}</span>
+      </div>
+      <div class="budget-category-values">
+        <span class="category-percent">${c.percent}%</span>
+        <span class="category-amount">₹${c.amount.toLocaleString('en-IN')}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
 function renderChecklist(trip) {
   const total = trip.packingList.length;
   const checked = trip.packingList.filter(i => i.checked).length;
@@ -125,6 +127,7 @@ function renderChecklist(trip) {
     box.addEventListener('change', e => {
       trip.packingList[idx].checked = e.target.checked;
       renderChecklist(trip);
+      // If this trip is already saved, keep the saved copy in sync.
       if (savedTrips.some(t => t.id === trip.id)) window.travelAPI?.saveTrips(savedTrips);
     });
   });
@@ -144,12 +147,19 @@ async function saveCurrentTrip() {
   await window.travelAPI?.saveTrips(savedTrips);
   renderSavedTripsList();
 
+  // Quick visual confirmation so the user knows it landed.
   const btn = document.getElementById('btn-save-current-trip');
   if (btn) {
     const original = btn.innerHTML;
     btn.innerHTML = `<span>✅</span> Saved to Disk!`;
     setTimeout(() => { btn.innerHTML = original; }, 2000);
   }
+}
+
+async function deleteTrip(tripId) {
+  savedTrips = savedTrips.filter(t => t.id !== tripId);
+  await window.travelAPI?.saveTrips(savedTrips);
+  renderSavedTripsList();
 }
 
 function renderSavedTripsList() {
@@ -254,6 +264,7 @@ function setupCreateTripForm() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Map every button that switches screens to its target view.
   const navMap = {
     'nav-dashboard': 'dashboard',
     'nav-create': 'create',
@@ -272,9 +283,3 @@ document.addEventListener('DOMContentLoaded', () => {
   setupCreateTripForm();
   loadSavedTrips();
 });
-async function deleteTrip(tripId) {
-  savedTrips = savedTrips.filter(t => t.id !== tripId);
-  await window.travelAPI?.saveTrips(savedTrips);
-  renderSavedTripsList();
-}
-

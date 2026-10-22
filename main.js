@@ -1,10 +1,12 @@
-// main.js - Electron main process.
+// main.js — Electron main process. Owns the window, the IPC handlers, and trips.json on disk.
+
 import electron from "electron";
 import path from "path";
 import fs from "fs";
 
 const { app, BrowserWindow, ipcMain } = electron;
 
+// trips.json lives in Electron's per-user data folder, so it survives app restarts.
 function getTripsFilePath() {
   return path.join(app.getPath("userData"), "trips.json");
 }
@@ -34,6 +36,8 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
+    minWidth: 900,
+    minHeight: 600,
     title: "Travel Planner",
     backgroundColor: "#f0f4f8",
     webPreferences: {
@@ -43,16 +47,19 @@ function createWindow() {
   win.loadFile(path.join(import.meta.dirname, "index.html"));
 }
 
+// The renderer reaches these through window.travelAPI (see preload.js).
 ipcMain.handle("trips:load", () => readTripsFromDisk());
 ipcMain.handle("trips:save", (_event, trips) => writeTripsToDisk(trips));
 
 app.whenReady().then(() => {
   createWindow();
   app.on("activate", () => {
+    // macOS: re-open a window when the dock icon is clicked and none are open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
 });
 
 app.on("window-all-closed", () => {
+  // macOS keeps apps running until you quit explicitly.
   if (process.platform !== "darwin") app.quit();
 });

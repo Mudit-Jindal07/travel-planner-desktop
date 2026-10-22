@@ -12,176 +12,197 @@
 </head>
 <body>
   <div class="app-layout">
-<aside class="sidebar">
-  <div class="brand">
-    <span class="brand-icon">✈️</span>
-    <div class="brand-text">
-      <h2>Voyage</h2>
-      <span class="brand-tag">Travel Planner</span>
-    </div>
-  </div>
-  <nav class="nav-menu">
-    <button class="nav-item active" id="nav-dashboard">
-      <span class="nav-icon">🧭</span><span>Dashboard</span>
-    </button>
-    <button class="nav-item" id="nav-create">
-      <span class="nav-icon">✨</span><span>Create Trip</span>
-    </button>
-    <button class="nav-item" id="nav-trips">
-      <span class="nav-icon">🗺️</span><span>Saved Trips</span>
-    </button>
-  </nav>
-</aside>
-<main class="main-content">
-  <header class="top-header">
-    <div>
-      <h1>Welcome, Explorer</h1>
-      <p class="subtitle">Plan your next adventure with day-by-day itineraries and smart budgets.</p>
-    </div>
-    <button class="btn btn-primary" id="btn-quick-create"><span>+</span> Plan New Trip</button>
-  </header>
-<section id="view-dashboard" class="view-section">
-  <div class="welcome-card">
-    <div class="welcome-info">
-      <h2>Simple, Smart Travel Planning</h2>
-      <p>Ready to discover the world? Create custom itineraries, visualize budget distributions, manage checklists, and explore curated destination ideas.</p>
-      <div class="welcome-actions">
-        <button class="btn btn-primary" id="btn-get-started">Start Planning</button>
-      </div>
-    </div>
-    <div class="welcome-graphic">
-      <div class="globe-badge">🌍</div>
-    </div>
-  </div>
-  <div class="stats-grid">
-    <div class="stat-card">
-      <div class="stat-icon">🎒</div>
-      <div class="stat-data">
-        <span class="stat-value" id="stat-total-trips">0</span>
-        <span class="stat-label">Saved Trips</span>
-      </div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon">📍</div>
-      <div class="stat-data">
-        <span class="stat-value">6+</span>
-        <span class="stat-label">Popular Destinations</span>
-      </div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon">💰</div>
-      <div class="stat-data">
-        <span class="stat-value">Smart</span>
-        <span class="stat-label">Budget Breakdown</span>
-      </div>
-    </div>
-  </div>
-</section>
-<section id="view-create" class="view-section hidden">
-  <div class="view-header">
-    <h2>Create a New Trip</h2>
-    <p class="subtitle">Enter your destination, duration, budget, and travel interests to generate an instant plan.</p>
-  </div>
-  <div class="form-container">
-    <form id="form-create-trip" class="trip-form">
-      <div class="form-grid">
-        <div class="form-group full-width">
-          <label for="trip-name">Trip Name</label>
-          <input type="text" id="trip-name" name="tripName" placeholder="e.g. Royal Jaipur Exploration" required />
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-icon">✈️</span>
+        <div class="brand-text">
+          <h2>Voyage</h2>
+          <span class="brand-tag">Travel Planner</span>
         </div>
-        <div class="form-group">
-          <label for="trip-destination">Destination</label>
-          <select id="trip-destination" name="destination" required>
-            <option value="" disabled selected>Select a destination</option>
-            <option value="Jaipur">Jaipur (Rajasthan)</option>
-            <option value="Goa">Goa (Beaches &amp; Coastal)</option>
-            <option value="Manali">Manali (Himachal Pradesh)</option>
-            <option value="Kerala">Kerala (Backwaters &amp; Nature)</option>
-            <option value="Tokyo">Tokyo (Japan)</option>
-            <option value="Paris">Paris (France)</option>
-          </select>
+      </div>
+      <nav class="nav-menu">
+        <button class="nav-item active" id="nav-dashboard">
+          <span class="nav-icon">🧭</span><span>Dashboard</span>
+        </button>
+        <button class="nav-item" id="nav-create">
+          <span class="nav-icon">✨</span><span>Create Trip</span>
+        </button>
+        <button class="nav-item" id="nav-trips">
+          <span class="nav-icon">🗺️</span><span>Saved Trips</span>
+        </button>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-header">
+        <div>
+          <h1>Welcome, Explorer</h1>
+          <p class="subtitle">Plan your next adventure with day-by-day itineraries and smart budgets.</p>
         </div>
-        <div class="form-group">
-          <label for="trip-days">Duration (Days)</label>
-          <input type="number" id="trip-days" name="days" min="1" max="15" value="3" required />
-        </div>
-        <div class="form-group full-width">
-          <label for="trip-budget">Estimated Total Budget (₹)</label>
-          <input type="number" id="trip-budget" name="budget" min="500" step="500" value="15000" required />
-        </div>
-        <div class="form-group full-width">
-          <label>Travel Interests (Select at least one)</label>
-          <div class="interests-grid">
-            <label class="interest-chip"><input type="checkbox" name="interests" value="History" checked /><span class="chip-content">🏛️ History</span></label>
-            <label class="interest-chip"><input type="checkbox" name="interests" value="Food" checked /><span class="chip-content">🍲 Food</span></label>
-            <label class="interest-chip"><input type="checkbox" name="interests" value="Shopping" /><span class="chip-content">🛍️ Shopping</span></label>
-            <label class="interest-chip"><input type="checkbox" name="interests" value="Nature" /><span class="chip-content">🌲 Nature</span></label>
-            <label class="interest-chip"><input type="checkbox" name="interests" value="Adventure" /><span class="chip-content">🧗 Adventure</span></label>
-            <label class="interest-chip"><input type="checkbox" name="interests" value="Relaxation" /><span class="chip-content">🧘 Relaxation</span></label>
+        <button class="btn btn-primary" id="btn-quick-create"><span>+</span> Plan New Trip</button>
+      </header>
+
+      <!-- Dashboard -->
+      <section id="view-dashboard" class="view-section">
+        <div class="welcome-card">
+          <div class="welcome-info">
+            <h2>Simple, Smart Travel Planning</h2>
+            <p>Ready to discover the world? Create custom itineraries, visualize budget distributions, manage checklists, and explore curated destination ideas.</p>
+            <div class="welcome-actions">
+              <button class="btn btn-primary" id="btn-get-started">Start Planning</button>
+            </div>
+          </div>
+          <div class="welcome-graphic">
+            <div class="globe-badge">🌍</div>
           </div>
         </div>
-      </div>
-      <div id="form-error-msg" class="form-error hidden"></div>
-      <div class="form-actions">
-        <button type="submit" class="btn btn-primary" id="btn-submit-trip"><span>✨</span> Generate Trip Plan</button>
-        <button type="button" class="btn btn-outline" id="btn-cancel-create">Cancel</button>
-      </div>
-    </form>
-  </div>
-</section>
-<section id="view-trips" class="view-section hidden">
-  <div class="view-header">
-    <h2>Your Saved Trips</h2>
-    <p class="subtitle">Access and manage all your stored travel plans from one place.</p>
-  </div>
-  <div class="saved-trips-grid" id="saved-trips-grid"></div>
-  <div class="placeholder-card" id="saved-trips-empty">
-    <p>No saved trips found yet. Start by planning your first trip!</p>
-    <button class="btn btn-primary" id="btn-empty-create">Plan a Trip Now</button>
-  </div>
-</section>
-<section id="view-details" class="view-section hidden">
-  <div class="view-header details-header-bar">
-    <button class="btn btn-outline btn-sm" id="btn-back-to-dashboard">← Back</button>
-    <div class="details-title-wrap">
-      <h2 id="details-trip-title">Trip Itinerary</h2>
-      <div id="details-meta-tags" class="meta-tags-row"></div>
-    </div>
-    <div class="header-actions">
-      <button class="btn btn-primary" id="btn-save-current-trip"><span>💾</span> Save Trip</button>
-    </div>
-  </div>
-  <div class="details-layout">
-    <div class="itinerary-column">
-      <div class="column-header">
-        <h3>Day-by-Day Itinerary</h3>
-        <span class="badge-subtle" id="itinerary-day-count">3 Days Planned</span>
-      </div>
-      <div id="itinerary-timeline-container" class="timeline-container"></div>
-    </div>
-    <div class="side-column">
-      <div class="details-card budget-card">
-        <div class="card-header-row">
-          <h4>💰 Estimated Budget Split</h4>
-          <span class="counter-badge" id="budget-total-badge">₹0 Total</span>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">🎒</div>
+            <div class="stat-data">
+              <span class="stat-value" id="stat-total-trips">0</span>
+              <span class="stat-label">Saved Trips</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📍</div>
+            <div class="stat-data">
+              <span class="stat-value">6+</span>
+              <span class="stat-label">Popular Destinations</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">💰</div>
+            <div class="stat-data">
+              <span class="stat-value">Smart</span>
+              <span class="stat-label">Budget Breakdown</span>
+            </div>
+          </div>
         </div>
-        <p class="card-hint">Estimated allocation based on your trip budget:</p>
-        <div class="budget-chart-bar" id="budget-chart-bar"></div>
-        <div class="budget-categories-list" id="budget-categories-container"></div>
-      </div>
-      <div class="details-card checklist-card">
-        <div class="card-header-row">
-          <h4>🎒 Packing Checklist</h4>
-          <span class="counter-badge" id="packing-counter">0 / 0</span>
+      </section>
+
+      <!-- Create Trip Form -->
+      <section id="view-create" class="view-section hidden">
+        <div class="view-header">
+          <h2>Create a New Trip</h2>
+          <p class="subtitle">Enter your destination, duration, budget, and travel interests to generate an instant plan.</p>
         </div>
-        <p class="card-hint">Check off items as you pack for your trip:</p>
-        <ul id="packing-checklist-container" class="checklist-items"></ul>
-      </div>
-    </div>
-  </div>
-</section>
+
+        <div class="form-container">
+          <form id="form-create-trip" class="trip-form">
+            <div class="form-grid">
+              <div class="form-group full-width">
+                <label for="trip-name">Trip Name</label>
+                <input type="text" id="trip-name" name="tripName" placeholder="e.g. Royal Jaipur Exploration" required />
+              </div>
+
+              <div class="form-group">
+                <label for="trip-destination">Destination</label>
+                <select id="trip-destination" name="destination" required>
+                  <option value="" disabled selected>Select a destination</option>
+                  <option value="Jaipur">Jaipur (Rajasthan)</option>
+                  <option value="Goa">Goa (Beaches &amp; Coastal)</option>
+                  <option value="Manali">Manali (Himachal Pradesh)</option>
+                  <option value="Kerala">Kerala (Backwaters &amp; Nature)</option>
+                  <option value="Tokyo">Tokyo (Japan)</option>
+                  <option value="Paris">Paris (France)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="trip-days">Duration (Days)</label>
+                <input type="number" id="trip-days" name="days" min="1" max="15" value="3" required />
+              </div>
+
+              <div class="form-group full-width">
+                <label for="trip-budget">Estimated Total Budget (₹)</label>
+                <input type="number" id="trip-budget" name="budget" min="500" step="500" value="15000" required />
+              </div>
+
+              <div class="form-group full-width">
+                <label>Travel Interests (Select at least one)</label>
+                <div class="interests-grid">
+                  <label class="interest-chip"><input type="checkbox" name="interests" value="History" checked /><span class="chip-content">🏛️ History</span></label>
+                  <label class="interest-chip"><input type="checkbox" name="interests" value="Food" checked /><span class="chip-content">🍲 Food</span></label>
+                  <label class="interest-chip"><input type="checkbox" name="interests" value="Shopping" /><span class="chip-content">🛍️ Shopping</span></label>
+                  <label class="interest-chip"><input type="checkbox" name="interests" value="Nature" /><span class="chip-content">🌲 Nature</span></label>
+                  <label class="interest-chip"><input type="checkbox" name="interests" value="Adventure" /><span class="chip-content">🧗 Adventure</span></label>
+                  <label class="interest-chip"><input type="checkbox" name="interests" value="Relaxation" /><span class="chip-content">🧘 Relaxation</span></label>
+                </div>
+              </div>
+            </div>
+
+            <div id="form-error-msg" class="form-error hidden"></div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="btn-submit-trip"><span>✨</span> Generate Trip Plan</button>
+              <button type="button" class="btn btn-outline" id="btn-cancel-create">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Saved Trips -->
+      <section id="view-trips" class="view-section hidden">
+        <div class="view-header">
+          <h2>Your Saved Trips</h2>
+          <p class="subtitle">Access and manage all your stored travel plans from one place.</p>
+        </div>
+        <div class="saved-trips-grid" id="saved-trips-grid"></div>
+        <div class="placeholder-card" id="saved-trips-empty">
+          <p>No saved trips found yet. Start by planning your first trip!</p>
+          <button class="btn btn-primary" id="btn-empty-create">Plan a Trip Now</button>
+        </div>
+      </section>
+
+      <!-- Trip Details -->
+      <section id="view-details" class="view-section hidden">
+        <div class="view-header details-header-bar">
+          <button class="btn btn-outline btn-sm" id="btn-back-to-dashboard">← Back</button>
+          <div class="details-title-wrap">
+            <h2 id="details-trip-title">Trip Itinerary</h2>
+            <div id="details-meta-tags" class="meta-tags-row"></div>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-primary" id="btn-save-current-trip"><span>💾</span> Save Trip</button>
+          </div>
+        </div>
+
+        <div class="details-layout">
+          <div class="itinerary-column">
+            <div class="column-header">
+              <h3>Day-by-Day Itinerary</h3>
+              <span class="badge-subtle" id="itinerary-day-count">3 Days Planned</span>
+            </div>
+            <div id="itinerary-timeline-container" class="timeline-container"></div>
+          </div>
+
+          <div class="side-column">
+            <div class="details-card budget-card">
+              <div class="card-header-row">
+                <h4>💰 Estimated Budget Split</h4>
+                <span class="counter-badge" id="budget-total-badge">₹0 Total</span>
+              </div>
+              <p class="card-hint">Estimated allocation based on your trip budget:</p>
+              <div class="budget-chart-bar" id="budget-chart-bar"></div>
+              <div class="budget-categories-list" id="budget-categories-container"></div>
+            </div>
+
+            <div class="details-card checklist-card">
+              <div class="card-header-row">
+                <h4>🎒 Packing Checklist</h4>
+                <span class="counter-badge" id="packing-counter">0 / 0</span>
+              </div>
+              <p class="card-hint">Check off items as you pack for your trip:</p>
+              <ul id="packing-checklist-container" class="checklist-items"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
+
   <script src="renderer.js"></script>
 </body>
 </html>
