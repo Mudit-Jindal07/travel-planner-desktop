@@ -34,8 +34,6 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
-    minWidth: 900,
-    minHeight: 600,
     title: "Travel Planner",
     backgroundColor: "#f0f4f8",
     webPreferences: {
