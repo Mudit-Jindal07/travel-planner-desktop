@@ -1,6 +1,6 @@
 {
   "name": "travel-planner-desktop",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Travel Planner Desktop Application built with Electron",
   "type": "module",
   "main": "main.js",
